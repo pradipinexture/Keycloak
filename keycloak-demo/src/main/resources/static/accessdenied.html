@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Boot Application</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+    </script>
+    <script>
+        $(function(){
+          $("#header").load("header.html");
+        });
+    </script>
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="lock"><img src="/img.png"></div>
+<div class="message">
+    <h1>Access to this page is restricted</h1>
+    <p>Please check with the site admin if you believe this is a mistake.</p>
+    <a href="http://localhost:8888">Go to home page </a><br><br>
+    <a href="/logout">logout</a>
+</div>
+
+<!--    <h1>Error</h1>-->
+<!--<br><br><br>!!!! You are unauthorized to use this resource-->
+
+<!--    <br><br><br><br><a href="http://localhost:8888">Go to home page of first Application </a>-->
+
+<!--    <br><br><br><br><a href="/logout">logout</a>-->
+</body>
+</html>
