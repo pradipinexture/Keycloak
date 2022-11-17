@@ -1,15 +1,4 @@
-
-$animationTime: 2s;
-
-* {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Lato', sans-serif;
-}
-
-body {
+.error-box {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +7,7 @@ body {
   background: linear-gradient(to bottom right, #EEE, #AAA);
 }
 
-h1 {
+.h1-access {
   margin: 40px 0 20px;
 }
 

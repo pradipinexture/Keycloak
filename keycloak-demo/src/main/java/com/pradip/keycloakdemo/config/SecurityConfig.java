@@ -49,7 +49,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         super.configure(http);
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
                 .antMatchers("/user*").hasRole("f_user_role")
                 .antMatchers("/admin*").hasRole("f_admin_role")
                 .anyRequest().permitAll().and().logout().logoutUrl("/logout").logoutSuccessUrl("http://localhost:8888/")
