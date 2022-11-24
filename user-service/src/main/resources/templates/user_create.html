@@ -1,0 +1,51 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head"/>
+
+<body>
+    <section th:replace="fragments :: html_header"/>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card border-0 shadow rounded-3 my-5">
+                        <div class="card-body p-4 p-sm-5">
+                            <h5 class="card-title text-center mb-5 fw-light fs-5">Create Realm In Keycloak</h5>
+                            <form action="/addUser" method="POST">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="username"  placeholder="Username" required>
+                                    <label>Username</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="firstName"  placeholder="First Name" required>
+                                    <label>First Name</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="lastName"  placeholder="Last Name" required>
+                                    <label>Last Name</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" name="email"  placeholder="Email" required>
+                                    <label>Email</label>
+                                </div>
+                                <br><br>
+                                <div class="d-grid">
+                                    <input class="btn btn-primary text-uppercase fw-bold" type="submit" value="Create" />
+                                </div>
+                                <br>
+                                <section th:if="${createMessage != null}">
+                                    <div class="alert alert-success" th:if="${createMessage == 'User Created'}">
+                                        <strong>Success!</strong> <span th:text="${createMessage}"></span>
+                                    </div>
+                                    <div class="alert alert-danger" th:if="${createMessage != 'User Created'}">
+                                        <strong>Error!</strong> <span th:text="${createMessage}"></span>
+                                    </div>
+                                </section>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
