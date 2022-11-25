@@ -1,0 +1,11 @@
+server:
+    port: 9000
+
+keycloak-initializer:
+    initializeOnStartup: true
+    masterRealm: master
+    applicationRealm: SpringBootKeycloakAdminAPI
+    client-id: admin-cli
+    username: admin
+    password: password
+    url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8180}/auth/
