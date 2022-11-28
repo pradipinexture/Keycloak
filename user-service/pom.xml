@@ -44,13 +44,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-security</artifactId>
 			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<optional>true</optional>
+			</dependency>
 		</dependencies>
 		<dependencyManagement>
 			<dependencies>
 				<dependency>
 					<groupId>org.keycloak.bom</groupId>
 					<artifactId>keycloak-adapter-bom</artifactId>
-					<version>19.0.3</version>
+					<version>18.0.0</version>
 					<type>pom</type>
 					<scope>import</scope>
 				</dependency>

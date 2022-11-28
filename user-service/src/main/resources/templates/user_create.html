@@ -1,7 +1,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head"/>
 
-<body>
+<body onload="">
     <section th:replace="fragments :: html_header"/>
     <section>
         <div class="container">
@@ -10,7 +10,7 @@
                     <div class="card border-0 shadow rounded-3 my-5">
                         <div class="card-body p-4 p-sm-5">
                             <h5 class="card-title text-center mb-5 fw-light fs-5">Create Realm In Keycloak</h5>
-                            <form action="/addUser" method="POST">
+                            <form action="addUser" method="POST" id="formId">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" name="username"  placeholder="Username" required>
                                     <label>Username</label>
@@ -26,6 +26,10 @@
                                 <div class="form-floating">
                                     <input type="email" class="form-control" name="email"  placeholder="Email" required>
                                     <label>Email</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="credentials[0].value"  placeholder="password" required>
+                                    <label>password</label>
                                 </div>
                                 <br><br>
                                 <div class="d-grid">
@@ -47,5 +51,19 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function changeValue(){
+            let pathArray=window.location.pathname.split("/");
+            console.log("=> Path array is  : "+pathArray);
+            if(pathArray[1] == "tenant"){
+                console.log("Realm is : "+pathArray[2]);
+                document.getElementById("formId").action = "tenant/"+pathArray[2]+"/addUser";
+            }
+            else{
+                console.log("Request is invalid")
+            }
+        }
+    </script>
 </body>
 </html>
