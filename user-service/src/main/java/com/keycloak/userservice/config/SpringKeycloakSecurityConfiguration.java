@@ -132,18 +132,11 @@ public class SpringKeycloakSecurityConfiguration {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.sessionManagement()
-                    // use previously declared bean
                     .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
-
-                    // keycloak filters for securisation
                     .and().addFilterBefore(keycloakPreAuthActionsFilter(), LogoutFilter.class)
                     .addFilterBefore(keycloakAuthenticationProcessingFilter(), X509AuthenticationFilter.class).exceptionHandling()
                     .authenticationEntryPoint(authenticationEntryPoint())
-
-                    // add cors options
                     .and().cors()
-                    // delegate logout endpoint to spring security
-                    .and().formLogin().defaultSuccessUrl("http://localhost:2222/tenant/"+ KeycloakService.currentRealmName +"/sso/login")
                     .and().logout().addLogoutHandler(keycloakLogoutHandler()).logoutUrl("/tenant/*/logout")
                     .logoutSuccessHandler(new LogoutSuccessHandler() {
                         @Override

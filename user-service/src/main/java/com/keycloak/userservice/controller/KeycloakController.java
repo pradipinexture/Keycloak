@@ -1,6 +1,8 @@
 package com.keycloak.userservice.controller;
 
 import com.keycloak.userservice.User;
+import com.keycloak.userservice.dao.CustomRepisitory;
+import com.keycloak.userservice.model.CustomKeycloakDeployment;
 import com.keycloak.userservice.service.KeycloakService;
 import org.keycloak.adapters.jetty.core.AbstractKeycloakJettyAuthenticator;
 import org.keycloak.representations.idm.CredentialRepresentation;
@@ -19,6 +21,8 @@ import java.util.List;
 @RequestMapping("/tenant")
 public class KeycloakController {
 
+
+
     @Autowired
     KeycloakService keycloakService;
 
@@ -31,6 +35,11 @@ public class KeycloakController {
     // UI Pages
     @GetMapping("/{realm}/users")
     public String getAllUsers(Model model){
+//        CustomKeycloakDeployment deployment=new CustomKeycloakDeployment("branch1","http://localhost:8080","external","web",true);
+//        keycloakService.saveKeycloakDeployment(deployment);
+//
+//        CustomKeycloakDeployment deploymen2=new CustomKeycloakDeployment("branch2","http://localhost:8080","external","web",true);
+//        keycloakService.saveKeycloakDeployment(deploymen2);
         model.addAttribute("users",keycloakService.getAllUser());
         return "users";
     }

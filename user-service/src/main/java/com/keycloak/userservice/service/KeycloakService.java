@@ -1,24 +1,32 @@
 package com.keycloak.userservice.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.keycloak.userservice.dao.CustomRepisitory;
+import com.keycloak.userservice.model.CustomKeycloakDeployment;
+import org.keycloak.adapters.KeycloakDeployment;
+import org.keycloak.adapters.KeycloakDeploymentBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
-import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
 public class KeycloakService {
     @Autowired
     Keycloak keycloak;
+
+    @Autowired
+    CustomRepisitory customRepisitory;
 
     public static String currentRealmName="Custom";
     public String addRealm(RealmRepresentation realmRepresentation){
@@ -84,6 +92,30 @@ public class KeycloakService {
     public UserRepresentation getUser(String id) {
         RealmResource realmResource =getKeycloakRealmInstance();
         return realmResource.users().get(id).toRepresentation();
+    }
+
+    public CustomKeycloakDeployment saveKeycloakDeployment(CustomKeycloakDeployment customKeycloakDeployment){
+        return customRepisitory.save(customKeycloakDeployment);
+    }
+
+    public CustomKeycloakDeployment saveKeycloakDeployment(String realm){
+        return customRepisitory.findByRealm(realm);
+    }
+
+    public CustomKeycloakDeployment getKeycloakDeploymentByRealm(String realm) throws JsonProcessingException {
+        return customRepisitory.findByRealm(realm);
+    }
+
+    public KeycloakDeployment getFinalKeycloakDep(String realm) throws JsonProcessingException {
+        CustomKeycloakDeployment keycloakDeploymentByRealm = getKeycloakDeploymentByRealm(realm);
+        if(keycloakDeploymentByRealm != null){
+            return KeycloakDeploymentBuilder.build(new ByteArrayInputStream(new ObjectMapper().writer().withDefaultPrettyPrinter().writeValueAsString(keycloakDeploymentByRealm).getBytes()));
+        }
+        return null;
+    }
+
+    public List<CustomKeycloakDeployment> getAllKeycloakDeployment(){
+        return customRepisitory.findAll();
     }
 
     private RealmResource getKeycloakRealmInstance(){
