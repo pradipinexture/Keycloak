@@ -20,8 +20,15 @@
                                 </div>
                                 <br>
                                 <section th:if="${createMessage != null}">
-                                    <div class="alert alert-success" th:if="${createMessage == 'Realm Created'}">
-                                        <strong>Success!</strong> <span th:text="${createMessage}"></span>
+                                    <div th:if="${createMessage == 'Realm Created'}">
+                                        <div class="alert alert-success" >
+                                            <strong>Success!</strong>Virtual Software Created with <span th:text="'www.'+${addedRealm}+'.com'"></span>
+                                        </div>
+                                        <div class="text-center">
+                                            <a th:href="'http://localhost:2222/tenant/' + ${addedRealm} + '/users'" class="btn btn-success">Go to Admin Site</a>
+                                            <br><br><br>
+                                            <a th:href="'http://localhost:3333/tenant/' + ${addedRealm} + '/home'" class="btn btn-success">Go to User Site</a>
+                                        </div>
                                     </div>
                                     <div class="alert alert-danger" th:if="${createMessage != 'Realm Created'}">
                                         <strong>Error!</strong> <span th:text="${createMessage}"></span>

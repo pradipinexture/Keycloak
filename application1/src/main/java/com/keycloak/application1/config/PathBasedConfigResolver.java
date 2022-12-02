@@ -1,25 +1,19 @@
-package com.keycloak.userservice.config;
+package com.keycloak.application1.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.keycloak.userservice.model.CustomKeycloakDeployment;
-import com.keycloak.userservice.service.KeycloakService;
-import lombok.SneakyThrows;
+
+import com.keycloak.application1.service.KeycloakService;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.KeycloakDeployment;
-import org.keycloak.adapters.KeycloakDeploymentBuilder;
-import org.keycloak.adapters.OIDCHttpFacade;
 import org.keycloak.adapters.spi.HttpFacade;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.adapters.config.AdapterConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.io.InputStream;
-import java.security.Principal;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -29,7 +23,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PathBasedConfigResolver implements KeycloakConfigResolver {
 
     private final ConcurrentHashMap<String, KeycloakDeployment> cache = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String, String> cacheCustom = new ConcurrentHashMap<>();
 
     @SuppressWarnings("unused")
     private static AdapterConfig adapterConfig;
@@ -37,7 +30,6 @@ public class PathBasedConfigResolver implements KeycloakConfigResolver {
     @Autowired
     KeycloakService keycloakService;
 
-    @SneakyThrows
     @Override
     public KeycloakDeployment resolve(HttpFacade.Request request) {
 
@@ -57,7 +49,11 @@ public class PathBasedConfigResolver implements KeycloakConfigResolver {
                 realm = realm.split("\\?")[0];
             }
             // description if cache not have any realm deployment then we get it from json file and add it in cache
-            setRealmInCache(realm);
+            try {
+                setRealmInCache(realm);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
 
             KeycloakService.currentRealmName=realm; // This is variable used while we sent request to keycloak
             return cache.get(realm);

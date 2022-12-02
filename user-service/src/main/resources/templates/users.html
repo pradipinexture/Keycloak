@@ -29,8 +29,8 @@
         <div class="card border-0 shadow rounded-3 my-5">
           <div class="card-body p-8 p-sm-8">
             <br><h3 class="card-title text-center mb-5 fw-light fs-5">All Users</h3>
-            <div th:if="${users == null}" class="alert alert-danger"><strong>Danger! </strong>Users are not available in keycloak</div>
-            <table th:if="${users != null}" class="table table-bordered table-striped table-hover">
+            <div th:if="${users.isEmpty()}" class="alert alert-danger"><strong>Danger! </strong>Users are not available in keycloak</div>
+            <table th:if="${!users.isEmpty()}" class="table table-bordered table-striped table-hover">
               <thead class="bg-primary">
               <tr>
                 <th scope="col">#</th>

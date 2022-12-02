@@ -1,26 +1,15 @@
 package com.keycloak.userservice.controller;
 
-import com.keycloak.userservice.User;
-import com.keycloak.userservice.dao.CustomRepisitory;
-import com.keycloak.userservice.model.CustomKeycloakDeployment;
 import com.keycloak.userservice.service.KeycloakService;
-import org.keycloak.adapters.jetty.core.AbstractKeycloakJettyAuthenticator;
-import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.RealmRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.List;
-
 @Controller
 @RequestMapping("/tenant")
 public class KeycloakController {
-
 
 
     @Autowired
@@ -35,11 +24,6 @@ public class KeycloakController {
     // UI Pages
     @GetMapping("/{realm}/users")
     public String getAllUsers(Model model){
-//        CustomKeycloakDeployment deployment=new CustomKeycloakDeployment("branch1","http://localhost:8080","external","web",true);
-//        keycloakService.saveKeycloakDeployment(deployment);
-//
-//        CustomKeycloakDeployment deploymen2=new CustomKeycloakDeployment("branch2","http://localhost:8080","external","web",true);
-//        keycloakService.saveKeycloakDeployment(deploymen2);
         model.addAttribute("users",keycloakService.getAllUser());
         return "users";
     }
@@ -71,6 +55,9 @@ public class KeycloakController {
         System.out.println(deleteMessage);
         return "user_delete";
     }
-
-
+    @GetMapping("/{realm}/accessdenied")
+    public String getAcccessDeniedPage(Model model) {
+        model.addAttribute("currentRealm",KeycloakService.currentRealmName);
+        return "accessdenied";
+    }
 }

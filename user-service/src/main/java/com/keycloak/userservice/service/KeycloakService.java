@@ -2,7 +2,7 @@ package com.keycloak.userservice.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.keycloak.userservice.dao.CustomRepisitory;
+import com.keycloak.userservice.repository.CustomRepisitory;
 import com.keycloak.userservice.model.CustomKeycloakDeployment;
 import org.keycloak.adapters.KeycloakDeployment;
 import org.keycloak.adapters.KeycloakDeploymentBuilder;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
 
 @Service

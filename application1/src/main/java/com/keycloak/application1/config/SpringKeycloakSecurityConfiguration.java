@@ -1,6 +1,6 @@
-package com.keycloak.userservice.config;
+package com.keycloak.application1.config;
 
-import com.keycloak.userservice.service.KeycloakService;
+import com.keycloak.application1.service.KeycloakService;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -10,7 +10,6 @@ import org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter;
 import org.keycloak.adapters.springsecurity.filter.KeycloakSecurityContextRequestFilter;
 import org.keycloak.adapters.springsecurity.management.HttpSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -144,7 +143,7 @@ public class SpringKeycloakSecurityConfiguration {
                     .logoutSuccessHandler(new LogoutSuccessHandler() {
                         @Override
                         public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                            response.sendRedirect("http://localhost:2222/tenant/"+ KeycloakService.currentRealmName +"/sso/login");
+                            response.sendRedirect("http://localhost:3333/tenant/"+ KeycloakService.currentRealmName +"/sso/login");
                         }
                     })
                     .and().apply(new SpringKeycloakSecurityAdapter());
@@ -173,20 +172,9 @@ public class SpringKeycloakSecurityConfiguration {
 //                    .csrf().disable()
                     // disable csrf because of API mode
                     .csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-                    .and()
-                    // manage routes securisation here
-                    .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-
-                    .and().authorizeRequests().antMatchers("/error/**","/tenant/*/accessdenied","/tenant/*/logout","/tenant/*/sso/login","/favicon.ico").permitAll()
-                    .antMatchers("/**").hasRole("admin")
-                    .anyRequest().authenticated()
-                    .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                    .and().authorizeRequests().antMatchers("/tenant/*/logout","/tenant/*/sso/login","/favicon.ico").permitAll()
+                    .anyRequest().authenticated();
 //                    .and().exceptionHandling().authenticationEntryPoint(authEntryPoint);             // .antMatchers("/**/catalog").hasRole("CATALOG_MANAGER") //
-        }
-        @Bean
-        public AccessDeniedHandler accessDeniedHandler(){
-            return new CustomAccessDeniedHandler();
         }
     }
 }

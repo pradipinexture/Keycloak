@@ -1,18 +1,6 @@
-.error-box {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to bottom right, #EEE, #AAA);
+.siteName{
+    margin-right:30%;
 }
-
-.h1-access {
-  margin: 40px 0 20px;
-}
-
-.lock {
-  border-radius: 5px;
-  width: 55px;
-  height: 45px;
+.nav-item{
+    margin:0 30px;
 }

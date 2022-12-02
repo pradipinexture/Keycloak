@@ -52,10 +52,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .antMatchers("/**").authenticated()
                 .anyRequest().permitAll()
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("http://localhost:1111/sso/login");
-//                .antMatchers("/user*").hasRole("f_user_role")
-//                .antMatchers("/*").authenticated()
-//                .and().logout().logoutUrl("/logout");
-//                .and().exceptionHandling().accessDeniedPage("/accessdenied");
         http.csrf().disable();
 
     }

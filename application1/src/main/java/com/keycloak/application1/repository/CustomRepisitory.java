@@ -1,9 +1,8 @@
-package com.keycloak.userservice.dao;
+package com.keycloak.application1.repository;
 
 
-import com.keycloak.userservice.model.CustomKeycloakDeployment;
+import com.keycloak.application1.model.CustomKeycloakDeployment;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 //@Repository
 public interface CustomRepisitory extends JpaRepository<CustomKeycloakDeployment,Integer> {

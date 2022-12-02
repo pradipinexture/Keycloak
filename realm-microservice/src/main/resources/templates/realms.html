@@ -9,8 +9,8 @@
         <div class="card border-0 shadow rounded-3 my-5">
           <div class="card-body p-6 p-sm-6">
             <br><h3 class="card-title text-center mb-5 fw-light fs-5">All Realms</h3>
-            <div th:if="${realms == null}" class="alert alert-danger"><strong>Danger! </strong>Realms are not available in keycloak</div>
-            <table th:if="${realms != null}" class="table table-bordered table-striped table-hover">
+            <div th:if="${realms.isEmpty()}" class="alert alert-danger"><strong>Danger! </strong>Realms are not available in keycloak</div>
+            <table th:if="${!realms.isEmpty()}" class="table table-bordered table-striped table-hover">
               <thead class="bg-primary">
               <tr>
                 <th scope="col">#</th>
