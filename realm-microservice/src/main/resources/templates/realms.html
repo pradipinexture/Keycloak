@@ -17,6 +17,8 @@
                 <th scope="col">Realm ID</th>
                 <th scope="col">Realm Name</th>
                 <th scope="col">Realm Status</th>
+                <th scope="col">Admin Site</th>
+                <th scope="col">User Site</th>
               </tr>
               </thead>
               <tbody>
@@ -28,10 +30,16 @@
                 <td>
                   <a th:text="${realm.getRealm()}"></a>
                 </td>
+
                 <td>
                   <a th:text="${realm.isEnabled()}"></a>
                 </td>
-
+                <td>
+                  <a th:href="'http://localhost:2222/tenant/' + ${realm.getRealm()} + '/users'" target="_blank">Go</a>
+                </td>
+                <td>
+                  <a th:href="'http://localhost:3333/tenant/' + ${realm.getRealm()} + '/home'" target="_blank">Go</a>
+                </td>
               </tr>
               </tbody>
             </table>

@@ -25,9 +25,9 @@
                                             <strong>Success!</strong>Virtual Software Created with <span th:text="'www.'+${addedRealm}+'.com'"></span>
                                         </div>
                                         <div class="text-center">
-                                            <a th:href="'http://localhost:2222/tenant/' + ${addedRealm} + '/users'" class="btn btn-success">Go to Admin Site</a>
+                                            <a th:href="'http://localhost:2222/tenant/' + ${addedRealm} + '/users'" target="_blank" class="btn btn-success">Go to Admin Site</a>
                                             <br><br><br>
-                                            <a th:href="'http://localhost:3333/tenant/' + ${addedRealm} + '/home'" class="btn btn-success">Go to User Site</a>
+                                            <a th:href="'http://localhost:3333/tenant/' + ${addedRealm} + '/home'" target="_blank" class="btn btn-success">Go to User Site</a>
                                         </div>
                                     </div>
                                     <div class="alert alert-danger" th:if="${createMessage != 'Realm Created'}">
